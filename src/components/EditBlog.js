@@ -16,13 +16,18 @@ const EditBlog = () => {
       getBlogDetails(id);
     }
   }, [id, blog, getBlogDetails]);
+  useEffect(() => {
+    setTitle(blog?.title);
+    setAuthor(blog?.author);
+    setBody(blog?.body);
+  }, [blog]);
   const handleSubmit = (e) => {
     e.preventDefault();
     editBlog(id, newBlog, history);
   };
   return (
     <>
-      {!loadingData ? (
+      {!loadingData && blog ? (
         <form className="form" onSubmit={handleSubmit}>
           {error && <h3 className="alert-danger">{error}</h3>}
           <div className="form-group">
