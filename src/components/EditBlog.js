@@ -6,9 +6,9 @@ const EditBlog = () => {
   const { id } = useParams();
   const history = useHistory();
   const { getBlogDetails, blog, error, editBlog, loadingData } = useBlog();
-  const [title, setTitle] = useState(blog?.title);
-  const [body, setBody] = useState(blog?.body);
-  const [author, setAuthor] = useState(blog?.author);
+  const [title, setTitle] = useState(blog ? blog.title : "");
+  const [body, setBody] = useState(blog ? blog.body : "");
+  const [author, setAuthor] = useState(blog ? blog.author : "");
   const newBlog = { title, author, body };
 
   useEffect(() => {
@@ -16,11 +16,13 @@ const EditBlog = () => {
       getBlogDetails(id);
     }
   }, [id, blog, getBlogDetails]);
+
   useEffect(() => {
     setTitle(blog?.title);
     setAuthor(blog?.author);
     setBody(blog?.body);
   }, [blog]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     editBlog(id, newBlog, history);

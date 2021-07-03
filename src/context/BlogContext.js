@@ -85,11 +85,11 @@ export const BlogProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const newBlog = await db.doc(`/blogs/${id}`).update(blog);
-      newBlog.id = id;
+      await db.doc(`/blogs/${id}`).update(blog);
+      blog.id = id;
       const index = blogs.findIndex((blog) => blog.id === id);
-      blogs[index] = newBlog;
-      setBlog(newBlog);
+      blogs[index] = blog;
+      setBlog(blog);
       setLoading(false);
       history.push(`/blogs/${id}`);
     } catch (error) {
